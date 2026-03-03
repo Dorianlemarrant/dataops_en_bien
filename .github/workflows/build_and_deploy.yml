@@ -61,5 +61,5 @@ jobs:
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --image=${{ env.IMAGE }} \
-            --region=${{ env.CLOUD_RUN_REGION }}g \
+            --region=${{ env.CLOUD_RUN_REGION }} \
             --allow-unauthenticated
