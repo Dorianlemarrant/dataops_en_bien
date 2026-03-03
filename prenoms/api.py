@@ -3,10 +3,13 @@ import joblib
 from fastapi import FastAPI
 from main import predict as predict_name
 import requests
+import os
 
 
 app = FastAPI()
 model = joblib.load("model.joblib")
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3.5:0.8b")
 
 
 class Model(enum.Enum):
@@ -35,9 +38,9 @@ Example:
 - if you get "Anais" you should return "F".
 """
         response = requests.post(
-            "http://localhost:11434/api/chat",
+            f"{OLLAMA_URL}/api/chat",
             json={
-                "model": "qwen3.5:0.8b",
+                "model": OLLAMA_MODEL,
                 "messages": [
                     {
                         "role": "system",

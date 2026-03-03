@@ -12,6 +12,7 @@ env:
   SERVICE_NAME: prenoms-api
   TAG: ${{ github.sha }}
   IMAGE: europe-docker.pkg.dev/ensai-2026/christophe/prenoms-api:${{ github.sha }}
+  OLLAMA_URL: ${{ secrets.OLLAMA_URL }}
 
 jobs:
   build_and_push:
@@ -62,6 +63,7 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --set-env-vars=OLLAMA_URL=${{ env.OLLAMA_URL }} \
             --image=${{ env.IMAGE }} \
             --region=${{ env.CLOUD_RUN_REGION }} \
             --allow-unauthenticated
