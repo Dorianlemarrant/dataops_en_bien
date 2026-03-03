@@ -12,6 +12,6 @@ async def root():
     return {"status": "ok"}
 
 
-@app.get("/predict")
+@app.get("/api/predict")
 async def predict(name: str):
     return {"name": name, "sex": "M" if int(predict_name(model, name)[0]) == 1 else "F"}
